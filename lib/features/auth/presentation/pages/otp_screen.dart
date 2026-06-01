@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutert1/apps/utils/app_colors.dart';
-import 'package:flutert1/apps/widgets/custom_button.dart';
-import 'package:flutert1/apps/views/create_password_screen.dart';
+import 'package:flutert1/features/auth/presentation/utils/app_colors.dart';
+import 'package:flutert1/features/auth/presentation/widgets/custom_button.dart';
+import 'package:flutert1/features/auth/presentation/pages/create_password_screen.dart';
 
 class OtpScreen extends StatefulWidget {
   const OtpScreen({super.key});

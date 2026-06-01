@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutert1/apps/utils/app_colors.dart';
-import 'package:flutert1/apps/widgets/custom_text_field.dart';
-import 'package:flutert1/apps/widgets/custom_button.dart';
+import 'package:flutert1/features/auth/presentation/utils/app_colors.dart';
+import 'package:flutert1/features/auth/presentation/widgets/custom_text_field.dart';
+import 'package:flutert1/features/auth/presentation/widgets/custom_button.dart';
+import 'package:flutert1/features/auth/presentation/controllers/auth_controller.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -13,6 +14,8 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   bool _obscurePassword = true; // Trạng thái ẩn/hiện mật khẩu
   bool _rememberMe = false;     // Trạng thái tích chọn điều khoản/Remember me
+  final AuthController _authController = AuthController();
+  bool _isLoading = false;
 
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
@@ -125,9 +128,34 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
               // 6. Nút SIGN UP chính
               CustomButton(
-                text: 'SIGN UP',
-                onPressed: () {
-                  print("Name: ${_nameController.text}, Email: ${_emailController.text}");
+                text: _isLoading ? 'LOADING...' : 'SIGN UP',
+                onPressed: _isLoading ? null : () async {
+                  setState(() {
+                    _isLoading = true;
+                  });
+
+                  final errorMessage = await _authController.signUp(
+                    _emailController.text.trim(),
+                    _passwordController.text.trim(),
+                    _nameController.text.trim(),
+                  );
+
+                  setState(() {
+                    _isLoading = false;
+                  });
+
+                  if (errorMessage == null) {
+                    print("ĐĂNG KÝ THÀNH CÔNG!");
+                    // Đăng ký xong tự động đăng nhập nên có thể đẩy thẳng vào Home
+                    // Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomeScreen()));
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(errorMessage),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  }
                 },
               ),
               const SizedBox(height: 16),

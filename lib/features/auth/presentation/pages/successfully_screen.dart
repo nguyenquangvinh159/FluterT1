@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutert1/apps/utils/app_colors.dart';
-import 'package:flutert1/apps/widgets/custom_button.dart';
+import 'package:flutert1/features/auth/presentation/utils/app_colors.dart';
+import 'package:flutert1/features/auth/presentation/widgets/custom_button.dart';
 
 class SuccessfullyScreen extends StatelessWidget {
   const SuccessfullyScreen({super.key});

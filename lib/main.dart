@@ -1,8 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutert1/apps/views/logo_screen.dart';
-import 'package:flutert1/apps/views/login_screen.dart';
+import 'package:firebase_core/firebase_core.dart'; // Import thư viện lõi
+import 'firebase_options.dart';
+import 'package:flutert1/features/auth/presentation/pages/logo_screen.dart';
+import 'package:flutert1/features/auth/presentation/pages/login_screen.dart';
 
-void main() {
+// Thay đổi hàm main thành bất đồng bộ (async)
+void main() async {
+  // Đảm bảo Flutter đã sẵn sàng trước khi gọi native code
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Khởi tạo Firebase
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(const MyApp());
 }
 
@@ -13,18 +24,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Jobspot App',
-      debugShowCheckedModeBanner: false, // Ẩn nhãn debug màu đỏ ở góc màn hình
-
-      // Cấu hình Theme chung cho toàn bộ ứng dụng (nếu cần)
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        scaffoldBackgroundColor: const Color(0xFFF9F9F9), // Màu nền mặc định sáng
-        useMaterial3: true, // Sử dụng các thành phần giao diện chuẩn Material 3
+        scaffoldBackgroundColor: const Color(0xFFF9F9F9),
+        useMaterial3: true,
       ),
-
-      // Màn hình đầu tiên xuất hiện khi vừa kích hoạt app (Logo tự đóng sau 1-2s)
       home: const LogoScreen(),
-
-      // Định nghĩa các tuyến đường (Routes) định danh để điều hướng nâng cao
       routes: {
         '/login': (context) => const LoginScreen(),
       },

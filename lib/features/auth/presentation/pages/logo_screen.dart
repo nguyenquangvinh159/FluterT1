@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutert1/apps/utils/app_colors.dart';
-import 'package:flutert1/apps/views/splash_screen.dart';
+import 'package:flutert1/features/auth/presentation/utils/app_colors.dart';
+import 'package:flutert1/features/auth/presentation/pages/splash_screen.dart';
 
 class LogoScreen extends StatefulWidget {
   const LogoScreen({super.key});

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutert1/apps/utils/app_colors.dart';
-import 'package:flutert1/apps/widgets/custom_text_field.dart';
-import 'package:flutert1/apps/widgets/custom_button.dart';
-import 'package:flutert1/apps/views/signup_screen.dart';
-import 'package:flutert1/apps/views/forgot_password_screen.dart';
+import 'package:flutert1/features/auth/presentation/utils/app_colors.dart';
+import 'package:flutert1/features/auth/presentation/widgets/custom_text_field.dart';
+import 'package:flutert1/features/auth/presentation/widgets/custom_button.dart';
+import 'package:flutert1/features/auth/presentation/pages/signup_screen.dart';
+import 'package:flutert1/features/auth/presentation/pages/forgot_password_screen.dart';
+import 'package:flutert1/features/auth/presentation/controllers/auth_controller.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -13,6 +14,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final AuthController _authController = AuthController();
+  bool _isLoading = false;
   bool _obscurePassword = true;
   bool _rememberMe = false;
 
@@ -140,9 +143,38 @@ class _LoginScreenState extends State<LoginScreen> {
 
               // 5. Nút Login chính
               CustomButton(
-                text: 'LOGIN',
-                onPressed: () {
-                  print("Email: ${_emailController.text}, Pass: ${_passwordController.text}");
+                text: _isLoading ? 'LOADING...' : 'LOGIN',
+                onPressed: _isLoading ? null : () async {
+                  // Bắt đầu quay loading
+                  setState(() {
+                    _isLoading = true;
+                  });
+
+                  // Gọi Controller để đăng nhập
+                  final errorMessage = await _authController.login(
+                    _emailController.text.trim(),
+                    _passwordController.text.trim(),
+                  );
+
+                  // Tắt loading
+                  setState(() {
+                    _isLoading = false;
+                  });
+
+                  // Kiểm tra kết quả
+                  if (errorMessage == null) {
+                    // Thành công: Chuyển sang màn hình Home (Tạm thời in ra console)
+                    print("ĐĂNG NHẬP THÀNH CÔNG! Chuyển sang Home...");
+                    // Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomeScreen()));
+                  } else {
+                    // Thất bại: Hiển thị thông báo lỗi bằng SnackBar
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(errorMessage),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  }
                 },
               ),
               const SizedBox(height: 16),

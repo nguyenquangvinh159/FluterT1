@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "384083373114",
+    "project_id": "jobspot-142c3",
+    "storage_bucket": "jobspot-142c3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:384083373114:android:c40ffd153a8891e076d903",
+        "android_client_info": {
+          "package_name": "com.example.flutert1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPj4Egs50r08ObCt4R5cIanheyGTw4grc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

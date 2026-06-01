@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutert1/apps/utils/app_colors.dart';
-import 'package:flutert1/apps/widgets/custom_text_field.dart';
-import 'package:flutert1/apps/widgets/custom_button.dart';
-import 'package:flutert1/apps/views/successfully_screen.dart';
+import 'package:flutert1/features/auth/presentation/utils/app_colors.dart';
+import 'package:flutert1/features/auth/presentation/widgets/custom_text_field.dart';
+import 'package:flutert1/features/auth/presentation/widgets/custom_button.dart';
+import 'package:flutert1/features/auth/presentation/pages/successfully_screen.dart';
 
 class CreatePasswordScreen extends StatefulWidget {
   const CreatePasswordScreen({super.key});
